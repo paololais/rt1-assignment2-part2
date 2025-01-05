@@ -13,7 +13,7 @@ class Robot(Node):
         self.velocity = Twist()
         self.current_position = None
 
-    def move_robot(self, x, z):
+    def move(self, x, z):
         self.velocity.linear.x = x
         self.velocity.angular.z = z
         self.publisher_.publish(self.velocity)
@@ -39,11 +39,11 @@ def main(args=None):
                 print("Invalid input. Please enter numeric values.")
                 continue 
 
-            robot.move_robot(x, z)
+            robot.move(x, z)
             
             time.sleep(1)
             # stop the robot
-            robot.move_robot(0.0, 0.0)
+            robot.move(0.0, 0.0)
             
             # Display the updated position
             rclpy.spin_once(robot)
