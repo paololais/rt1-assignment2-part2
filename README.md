@@ -29,18 +29,3 @@ After building the package, run the controller node:
 ```bash
 ros2 run assignment2 controller
 ```
-## Usage
-After launching the node, you will be prompted to enter the robot's linear velocity (x) and angular velocity (z).
-
-The robot will execute the command for 1 second, then stop and its updated position will be logged in the terminal.
-
-Example Input
-```
-Enter linear velocity x: 5
-Enter angular velocity z: 2
-```
-Example Output
-```
-[INFO] [robot_controller_node]: Linear = 5, Angular = 2
-[INFO] [robot_controller_node]: Current position: x=2.05, y=2.02
-```
