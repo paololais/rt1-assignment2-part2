@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'controller = assignment2.robot_controller:main',
         ],
     },
 )
