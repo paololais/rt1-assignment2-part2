@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 import time
 
 class Robot(Node):
@@ -8,6 +9,7 @@ class Robot(Node):
         super().__init__('robot_controller_node')
         # Publish the new velocity on the /cmd_vel topic
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.subscriber_ = self.create_subscription(Odometry,'odom',self.odom_callback,10)
         self.velocity = Twist()
         self.current_position = None
 
@@ -16,6 +18,11 @@ class Robot(Node):
         self.velocity.angular.z = z
         self.publisher_.publish(self.velocity)
         self.get_logger().info(f'Linear = {self.velocity.linear.x}, Angular = {self.velocity.angular.z}')
+        
+    def odom_callback(self, msg):
+        # Extract position from the odometry message
+        self.current_position = msg.pose.pose.position
+        self.get_logger().info(f'Current position: x={self.current_position.x}, y={self.current_position.y}')
 
 def main(args=None):
     rclpy.init(args=args)
@@ -37,6 +44,9 @@ def main(args=None):
             time.sleep(1)
             # stop the robot
             robot.move_robot(0.0, 0.0)
+            
+            # Display the updated position
+            rclpy.spin_once(robot)
             
     except Exception as e:
         print(f"Error: {e}")
