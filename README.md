@@ -1,4 +1,4 @@
-# ROS2 Robot Controller Node
+# RT1 Assignment 2 - Part 2
 
 This ROS2 package implements a robot controller node that allows users to command a robot's linear and angular velocities via a simple user interface. The node publishes velocity commands to `/cmd_vel` and subscribes to `/odom` to retrieve the robot's position. The robot is moved for 1 second based on user inputs, after which it stops automatically.
 
