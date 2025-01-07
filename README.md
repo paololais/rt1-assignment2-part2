@@ -1,6 +1,8 @@
 # RT1 Assignment 2 - Part 2
 
-This ROS2 package implements a robot controller node that allows users to command a robot's linear and angular velocities via a simple user interface. The node publishes velocity commands to `/cmd_vel` and subscribes to `/odom` to retrieve the robot's position. The robot is moved for 1 second based on user inputs, after which it stops automatically.
+This ROS2 package implements a robot controller node that allows users to command a robot's linear and angular velocities via a simple user interface. 
+
+The node publishes velocity commands to `/cmd_vel` and subscribes to `/odom` to retrieve the robot's position. The robot is moved for 1 second based on user inputs, after which it stops automatically.
 
 ## Features
 - Command linear velocity (`x`) and angular velocity (`z`) via a user interface.
@@ -12,13 +14,18 @@ This ROS2 package implements a robot controller node that allows users to comman
 - ROS2 Humble (or compatible version).
 - `robot_urdf` package for the simulation environment.
 
+  To get it, run the following commands in your ROS2 workspace:
+     ```
+     git clone https://github.com/CarmineD8/robot_urdf
+     git checkout ros2
+     ```
+
 ## Code Explanation
 
 ### Robot Class
 The `Robot` class is responsible for controlling the robot's movement and tracking its position. It contains the following key components:
 
 1. **Initialization (`__init__` method)**:
-   - The `Robot` class inherits from `Node` to create a ROS2 node named `robot_controller_node`.
    - A publisher (`self.publisher_`) is created to send velocity commands (`Twist` messages) to the `/cmd_vel` topic. This controls the robot's movement.
    - A subscriber (`self.subscriber_`) is set up to listen to odometry messages (`Odometry` messages) from the `/odom` topic. This helps track the robot's position.
    - The `velocity` attribute is a `Twist` message used to store the current linear and angular velocities.
@@ -58,19 +65,22 @@ The `main` function orchestrates the execution of the script and manages user in
 
 
 ## Setup Instructions
-
-### Step 1: Launch the Simulation
-```bash
-ros2 launch robot_urdf gazebo.launch.py
-```
-### Step 2: Build the Package
+### Step 1: Build the package
 Clone this repository into your ROS2 workspace (e.g., ~/ros2_ws/src) and build it:
 ```bash
 cd ~/ros2_ws
 colcon build --symlink-install
 ```
-### Step 3: Run the Controller Node
-After building the package, run the controller node:
+
+### Step 2: Launch the simulation
+```bash
+ros2 launch robot_urdf gazebo.launch.py
+```
+### Step 3: Run the controller node
 ```bash
 ros2 run assignment2 controller
 ```
+### Step 4: Control the robot
+Follow the prompts displayed by the controller node to set the robot's velocities and interact with the simulation.
+
+To exit press `Ctrl + c`.
