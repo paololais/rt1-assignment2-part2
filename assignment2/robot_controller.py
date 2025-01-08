@@ -45,11 +45,13 @@ def main(args=None):
             # stop the robot
             robot.move(0.0, 0.0)
             
+            rclpy.spin_once(robot)
+            
             # Display the updated position
-            if robot.current_position:
-                rclpy.spin_once(robot)
-            else:
-                print("Position not yet available. Waiting for odometry updates...")
+            #if robot.current_position:
+             #   rclpy.spin_once(robot)
+            #else:
+             #   print("Position not yet available. Waiting for odometry updates...")
             
     except Exception as e:
         print(f"Error: {e}")
